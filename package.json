@@ -1,0 +1,32 @@
+{
+  "name": "nextjs-server-action-tester",
+  "version": "1.0.0",
+  "description": "A development tool for scanning and testing server actions in Next.js projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bijish-js/nextjs-server-action-tester.git"
+  },
+  "keywords": [
+    "nextjs",
+    "server_actions",
+    "testing"
+  ],
+  "author": "Bijish O B",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bijish-js/nextjs-server-action-tester/issues"
+  },
+  "homepage": "https://github.com/bijish-js/nextjs-server-action-tester#readme",
+  "dependencies": {
+    "@babel/parser": "^7.24.7",
+    "@babel/traverse": "^7.24.7",
+    "fs-extra": "^11.2.0",
+    "next": "^14.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
