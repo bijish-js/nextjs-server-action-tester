@@ -27,7 +27,7 @@ async function setup() {
 		// Copy folders 
 		const srcFolders = prepareFilePaths(projectSetup)
 		const replacements = [
-			{ searchValue: '{API_PATH}', newValue: getConfig().apiName }
+			{ searchValue: '{API_NAME}', newValue: getConfig().apiName }
 		];
 		await copyFolders(srcFolders, true, replacements)
 

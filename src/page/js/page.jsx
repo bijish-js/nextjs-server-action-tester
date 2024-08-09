@@ -48,7 +48,7 @@ export default function ServerActions() {
 				id: selectedAction?.id,
 				args: args ? JSON.parse(args) : null,
 			});
-			const res = await fetch('{API_PATH}', {
+			const res = await fetch('/api/{API_NAME}', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

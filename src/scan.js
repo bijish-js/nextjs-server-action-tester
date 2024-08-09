@@ -30,7 +30,54 @@ const transformPath = (func) => {
 	const transformedPath = `@/${relativePath}`;
 	return transformedPath;
 };
-
+function extractTypeInfo(node, filePath) {
+	// Placeholder implementation to extract type information
+	// Enhance this to capture more complex types
+	if (node.params) {
+		const parameters = node.params.map(param => {
+			if (param.type === 'Identifier') {
+				return { name: param.name, type: param.typeAnnotation?.typeAnnotation?.type || 'unknown' };
+			}
+			if (param.type === 'ObjectPattern') {
+				return {
+					name: param.name,
+					type: 'object',
+					properties: param.properties.map(prop => ({
+						name: prop.key.name,
+						type: prop.value.typeAnnotation?.typeAnnotation?.type || 'unknown'
+					}))
+				};
+			}
+		});
+		const returnType = node.returnType?.typeAnnotation?.type || 'unknown';
+		return { parameters, returnType };
+	}
+	return null;
+}
+function extractTypeInfo(node, filePath) {
+	// Placeholder implementation to extract type information
+	// Enhance this to capture more complex types
+	if (node.params) {
+		const parameters = node.params.map(param => {
+			if (param.type === 'Identifier') {
+				return { name: param.name, type: param.typeAnnotation?.typeAnnotation?.type || 'unknown' };
+			}
+			if (param.type === 'ObjectPattern') {
+				return {
+					name: param.name,
+					type: 'object',
+					properties: param.properties.map(prop => ({
+						name: prop.key.name,
+						type: prop.value.typeAnnotation?.typeAnnotation?.type || 'unknown'
+					}))
+				};
+			}
+		});
+		const returnType = node.returnType?.typeAnnotation?.type || 'unknown';
+		return { parameters, returnType };
+	}
+	return null;
+}
 function findExportedUseServerFunctions(ast, filePath, result) {
 	let hasTopLevelUseServer = false;
 
@@ -51,13 +98,26 @@ function findExportedUseServerFunctions(ast, filePath, result) {
 				if (declaration.type === 'FunctionDeclaration' || declaration.type === 'VariableDeclaration') {
 					if (declaration.type === 'FunctionDeclaration') {
 						if (hasUseServerDirective(declaration.body.directives) || hasTopLevelUseServer) {
-							result.push({ id: generateRandomString(8), name: declaration.id.name, path: filePath, export: "named" });
+							result.push({
+								id: generateRandomString(8),
+								name: declaration.id.name,
+								path: filePath,
+								export: "named",
+								typeInfo: extractTypeInfo(declaration, filePath)
+							});
 						}
 					} else if (declaration.type === 'VariableDeclaration') {
 						declaration.declarations.forEach((decl) => {
 							if (decl.init && (decl.init.type === 'FunctionExpression' || decl.init.type === 'ArrowFunctionExpression')) {
 								if (hasUseServerDirective(decl.init.body.directives) || hasTopLevelUseServer) {
-									result.push({ id: generateRandomString(8), name: decl.id.name, path: filePath, export: "named" });
+									result.push({
+										id: generateRandomString(8),
+										name: decl.id.name,
+										path: filePath,
+										export: "named",
+										typeInfo: extractTypeInfo(decl.init, filePath)
+
+									});
 								}
 							}
 						});
@@ -71,11 +131,20 @@ function findExportedUseServerFunctions(ast, filePath, result) {
 				exportDefaultIdentifiers.set(declaration.name, filePath);
 			} else if (declaration.type === 'FunctionDeclaration') {
 				if (hasUseServerDirective(declaration.body.directives) || hasTopLevelUseServer) {
-					result.push({ id: generateRandomString(8), name: declaration.id.name, path: filePath, export: "default" });
+					result.push({
+						id: generateRandomString(8),
+						name: declaration.id.name,
+						path: filePath,
+						export: "default",
+						typeInfo: extractTypeInfo(declaration, filePath)
+					});
 				}
 			} else if (declaration.type === 'FunctionExpression' || declaration.type === 'ArrowFunctionExpression') {
 				if (hasUseServerDirective(declaration.body.directives) || hasTopLevelUseServer) {
-					result.push({ id: generateRandomString(8), name: 'default', path: filePath, export: "default" });
+					result.push({
+						id: generateRandomString(8), name: 'default', path: filePath, export: "default",
+						typeInfo: extractTypeInfo(declaration, filePath)
+					});
 				}
 			}
 		}
@@ -88,7 +157,13 @@ function findExportedUseServerFunctions(ast, filePath, result) {
 				const init = path.node.init;
 				if (init && (init.type === 'FunctionExpression' || init.type === 'ArrowFunctionExpression')) {
 					if (hasUseServerDirective(init.body.directives) || hasTopLevelUseServer) {
-						result.push({ id: generateRandomString(8), name: id, path: filePath, export: "default" });
+						result.push({
+							id: generateRandomString(8),
+							name: id,
+							path: filePath,
+							export: "default",
+							typeInfo: extractTypeInfo(init, filePath)
+						});
 					}
 				}
 			}

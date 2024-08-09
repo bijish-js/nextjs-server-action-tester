@@ -185,13 +185,11 @@ const prepareFilePaths = (setup) => {
 
 const copyFolders = async (srcFolders, rethrowError = false, replacements) => {
 	try {
-		// Validate input
 		if (!Array.isArray(srcFolders) || srcFolders.length === 0) {
 			console.error("❌ No folders to copy.");
 			return;
 		}
 
-		// Copy folders recursively
 		await Promise.all(srcFolders.map(async (folder) => {
 			if (!folder.src || !folder.dest) {
 				console.error(`❌ Invalid folder paths: ${JSON.stringify(folder)}`);
@@ -202,22 +200,60 @@ const copyFolders = async (srcFolders, rethrowError = false, replacements) => {
 			const destPath = path.resolve(process.cwd(), folder?.dest);
 
 			await fsExtra.copy(srcPath, destPath, {
-				overwrite: true, filter: async (src, dest) => {
-					if ((await fsExtra.stat(src)).isFile()) {
-						await replaceText(dest, replacements);
-					}
-					return true;
-				}
+				overwrite: true
 			});
+
+			// Optimize by batching file processing and using async map
+			const allFiles = await collectFiles(destPath);
+			await Promise.all(allFiles.map((filePath) => replaceText(filePath, replacements)));
 		}));
 
-		console.log("✅ Folders copied successfully.");
+		console.log("✅ Folders copied and text replaced successfully.");
 	}
 	catch (error) {
 		console.error("❌ Error occurred while copying folders:", error?.message);
 		if (rethrowError) {
-			throw error
+			throw error;
 		}
+	}
+};
+
+const collectFiles = async (folderPath) => {
+
+	try {
+		const files = await fsPromise.readdir(folderPath);
+		const filePaths = await Promise.all(files.map(async (file) => {
+			const filePath = path.join(folderPath, file);
+			const stats = await fsPromise.stat(filePath);
+			if (stats.isFile()) {
+				return filePath;
+			} else if (stats.isDirectory()) {
+				return collectFiles(filePath); // Recursively collect files
+			}
+		}));
+		return filePaths.flat(); // Flatten the array of file paths
+
+	}
+	catch (error) {
+		throw error;
+	}
+
+};
+
+const replaceText = async (filePath, replacements) => {
+	try {
+		const content = await fsPromise.readFile(filePath, 'utf8');
+		let newContent = content;
+		replacements.forEach(({ searchValue, newValue }) => {
+			const regex = new RegExp(searchValue, 'g');
+			newContent = newContent.replace(regex, newValue);
+		});
+		if (newContent !== content) {
+			await fsPromise.writeFile(filePath, newContent, 'utf8');
+		}
+	} catch (error) {
+		console.error(`❌ Error occurred while replacing text in file ${filePath}:`, error.message);
+		throw error;
 	}
 };
 
@@ -238,32 +274,9 @@ const addScripts = async () => {
 	}
 }
 
-const fileExists = async (filePath) => {
-	try {
-		await fsPromise.access(filePath);
-		return true;
-	} catch (error) {
-		return false;
-	}
-};
 
-const replaceText = async (filePath, replacements) => {
-	try {
-		if (await fileExists(filePath)) {
-			let content = await fsPromise.readFile(filePath, 'utf8');
-			replacements.forEach(({ searchValue, newValue }) => {
-				const regex = new RegExp(searchValue, 'g');
-				content = content.replace(regex, newValue);
-			});
-			await fsPromise.writeFile(filePath, content, 'utf8');
-		} else {
-			console.error(`❌ File does not exist: ${filePath}`);
-		}
-	} catch (error) {
-		console.error(`❌ Error occurred while replacing text in file ${filePath}:`, error.message);
-		throw error;
-	}
-};
+
+
 module.exports = {
 	determineProjectSetup,
 	loadConfig,
