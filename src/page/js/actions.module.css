@@ -1,59 +1,358 @@
+/* dark mode switch css */
+.darkMode {
+	margin-top: -20px;
+	margin-left: 10px;
+	border: none;
+	background: none;
+	outline-color: #777;
+}
+
+.darkModeLabel {
+	width: 65px;
+	height: 30px;
+	position: relative;
+	display: block;
+	background: #ebebeb;
+	border-radius: 200px;
+	box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4),
+		inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.darkModeLabel::after {
+	content: "";
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	background: linear-gradient(180deg, #ffcc89, #d8860b);
+	border-radius: 180px;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+}
+
+.darkModeInput {
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+.darkModeInput:checked+.darkModeLabel {
+	background: #242424;
+}
+
+.darkModeInput:checked+.darkModeLabel::after {
+	left: 62px;
+	transform: translateX(-100%);
+	background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+.darkModeLabel:active::after {
+	width: 30px;
+}
+
+.spaceContainer {
+	max-width: 95%;
+	padding: 0px 20px;
+	width: 100%;
+	margin: 0 auto;
+}
 
 .container {
-	max-width: 800px;
-	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 100vh;
+	transition: all 0.3s ease-in-out;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+}
+
+.lightContainer {
+	background-color: #f0f0f0;
+
+}
+
+.darkContainer {
+	background-color: #545252;
+
+}
+
+.boxShadowHeader {
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px 0px;
+}
+
+.topHeading {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.topHeadingLight {
+	color: #302f2f;
+}
+
+.topHeadingDark {
+	color: #ededed;
+
+}
+
+.contentWrap {
+	display: flex;
+	gap: 16px;
+	height: 100%;
+	flex: 1;
 	padding: 20px;
-	font-family: Arial, sans-serif;
-  }
-  
-  .title {
-	text-align: center;
-	margin-bottom: 20px;
-	font-size: 24px;
-	font-weight: bold;
-  }
-  
-  .select {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 20px;
-	font-size: 16px;
-	border: 1px solid #e9e9e9;
-	border-radius: 8px;
-  }
-  
-  .textarea {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 20px;
-	font-size: 16px;
-	min-height: 100px;
-	resize: vertical;
-	border: 1px solid #e9e9e9;
-	border-radius: 8px;
-  }
-  
-  .button {
-	display: block;
-	width: 100%;
-	padding: 10px;
-	background-color: #0070f3;
-	color: white;
-	border: none;
-	cursor: pointer;
-	font-size: 16px;
-	transition: background-color 0.3s ease;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+}
+
+.darkContentWrap {}
+
+.lightContentWrap {}
+
+.actionSelector {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 	border-radius: 24px;
-  }
-  
-  .button:hover {
-	background-color: #005bb5;
-  }
-  .buttonDisabled{
-	opacity: 0.5;
-  }
-  
-  .pre {
+	padding: 20px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+	flex: 1;
+}
+
+.darkActionSelector {
+	background-color: #7d7d7d;
+
+}
+
+.lightActionSelector {
+	background-color: #fff
+}
+
+.selectActionLabel {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.darkSelectActionLabel {
+	color: #fff
+}
+
+.lightSelectActionLabel {
+	color: #302f2f;
+
+}
+
+.actionNameInput {
+	padding: 8px 16px;
+	border-radius: 20px;
+	border: 1px solid #777;
+	min-height: 56px;
+	box-sizing: border-box;
+	font-size: 18px;
+	color: #595959;
+	outline-color: #777;
+}
+
+.darkActionNameInput {
+	background-color: #e9e7e7;
+}
+
+.lightActionNameInput {}
+
+.actionsList {
+	display: flex;
+	flex-direction: column;
+	background-color: #e9e7e7;
+	border-radius: 16px;
+	overflow: hidden;
+
+}
+
+.actionRow {
+
+	color: #1f1f1f;
+	padding: 8px 16px;
+	cursor: pointer;
+
+	border: none;
+	text-align: left;
+	outline-color: #777;
+	font-size: 16px;
+}
+
+.actionRow:first-child {
+	border-radius: 16px 16px 0px 0px;
+}
+
+.actionRow:last-child {
+	border-radius: 0px 0px 16px 16px;
+}
+
+
+
+
+
+.actionRowSelected,
+.actionRow:hover {
+	background-color: #cecdcd;
+	text-shadow: 1px 0 0 #777;
+
+}
+
+.actionPerformer {
+	flex: 3;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+	border-radius: 24px;
+	padding: 20px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+}
+
+.separator {
+	height: 1px;
+	background-color: #cbcbcb;
+	width: full;
+}
+
+.darkActionPerformer {
+	background-color: #7d7d7d;
+
+}
+
+.lightActionPerformer {
+	background-color: #fff;
+
+}
+
+.actionDetails {
+	display: flex;
+	gap: 8px;
+	flex-direction: column;
+}
+
+.actionName {
+	font-size: 28px;
+	font-weight: 600;
+	margin: 0px
+}
+
+.darkActionName {
+	color: #fff;
+}
+
+.lightActionName {
+
+	color: #302f2f;
+}
+
+.actionPath {
+	font-size: 14px;
+	font-weight: 400;
+	padding: 4px 8px;
+	background-color: #fff;
+	color: #d8860b;
+	border-radius: 8px;
+	width: fit-content;
+	margin: 0px;
+	/* border: 1px solid #777; */
+
+}
+
+.darkActionPath {}
+
+.lightActionPath {}
+
+.parametersContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.parametersText {
+	font-size: 24px;
+	font-weight: 600;
+	margin: 0px;
+
+
+}
+
+.darkParametersText {
+	color: #fff;
+
+}
+
+.lightParametersText {
+	color: #302f2f;
+
+}
+
+.parametersWrap {}
+
+.parameterField {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.parameterFieldHeader {
+	display: flex;
+	gap: 2px;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 4px 8px;
+	border-radius: 8px;
+	background-color: #fff;
+	width: fit-content;
+}
+
+.paramName {
+	font-size: 16px;
+	font-weight: 500;
+	color: #1f1f1f;
+
+}
+
+.paramType {
+	font-size: 14px;
+	font-weight: 500;
+	color: #d8860b;
+
+}
+
+.textarea {
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 16px;
+	resize: vertical;
+	box-sizing: border-box;
+
+	padding: 8px 16px;
+	border-radius: 8px;
+	border: 1px solid #777;
+	min-height: 56px;
+	box-sizing: border-box;
+	color: #595959;
+	outline-color: #777;
+}
+
+.darkTextarea {
+	background-color: #e9e7e7;
+}
+
+.pre {
 	background-color: #fafaf6;
 	padding: 10px;
 	border: 1px solid #ddd;
@@ -61,9 +360,9 @@
 	margin-top: 16px;
 	border-radius: 8px;
 	color: rgb(176, 59, 59);
-  }
-  
-  .error {
+}
+
+.error {
 	color: red;
 	background-color: #fdd;
 	padding: 10px;
@@ -73,5 +372,60 @@
 	border-radius: 8px;
 
 
-  }
-  
+}
+
+.executeButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	padding: 8px 16px;
+	background-color: #d8860b;
+	color: white;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+	border-radius: 24px;
+	column-gap: 8px;
+}
+
+.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.actionsLoader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.spinner {
+	animation: spin 1s linear infinite;
+	display: inline;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.contentWrap {
+		flex-direction: column;
+		padding: 16px;
+	}
+
+	.executeButton {
+		width: 100%;
+		text-align: center;
+		justify-content: center;
+	}
+}
