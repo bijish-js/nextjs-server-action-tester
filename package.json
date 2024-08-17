@@ -4,7 +4,7 @@
 	"description": "A development tool for scanning and testing server actions in Next.js projects.",
 	"main": "index.js",
 	"bin": {
-		"actions-scan": "./src/index.js"
+		"actions-scan": "src/index.js"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
 		"type": "git",
 		"url": "git+https://github.com/bijish-js/nextjs-server-action-tester.git"
 	},
-	"keywords":[
+	"keywords": [
 		"Next.js",
 		"server-actions",
 		"testing",
@@ -29,7 +29,7 @@
 		"code-scanning",
 		"server-functions",
 		"fullstack-development"
-	  ],
+	],
 	"author": "Bijish O B",
 	"license": "ISC",
 	"bugs": {
