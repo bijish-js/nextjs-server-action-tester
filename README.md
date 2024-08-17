@@ -1,4 +1,4 @@
-****# nextjs-server-action-tester
+# nextjs-server-action-tester
 
 **`nextjs-server-action-tester`** is a tool for scanning and testing server actions in Next.js projects. It automates setup, generates metadata, and provides a UI to list, search, and execute server functions. It supports both JavaScript and TypeScript, with customizable configurations and light/dark mode options.
 
