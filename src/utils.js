@@ -63,15 +63,15 @@ const determineProjectSetup = () => {
 };
 
 const updatePathAliases = (setup, rethrowError = false) => {
-	const { config, configPath, isTypeScript, hasSrcDir } = setup;
+	const { config, configPath, isTypeScript } = setup;
 
 	// Ensure compilerOptions and paths exist
 	if (!config.compilerOptions) config.compilerOptions = {};
 	if (!config.compilerOptions.paths) config.compilerOptions.paths = {};
 
 	// Define the alias to be added or updated
-	const aliasKey = "@/*";
-	const aliasValue = hasSrcDir ? ["./src/*"] : ["./*"];
+	const aliasKey = "@next-server-actions/*";
+	const aliasValue = ["./*"];
 
 	// Add or update the alias
 	config.compilerOptions.paths[aliasKey] = aliasValue;
@@ -93,7 +93,7 @@ const createJsConfig = (hasSrcDir, rethrowError = false) => {
 		compilerOptions: {
 			baseUrl: ".",
 			paths: {
-				"@/*": hasSrcDir ? ["./src/*"] : ["./*"]
+				"@next-server-actions/*": ["./*"]
 			}
 		},
 		include: ["**/*.js", "**/*.jsx"],

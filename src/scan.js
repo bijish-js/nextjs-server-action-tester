@@ -27,7 +27,7 @@ const transformPath = (func) => {
 	// Remove the file extension
 	relativePath = relativePath.replace(/\.(ts|js|jsx|tsx)$/, '');
 	// Construct the final transformed path
-	const transformedPath = `@/${relativePath}`;
+	const transformedPath = `@next-server-actions/${relativePath}`;
 	return transformedPath;
 };
 function extractTypeInfo(node, filePath) {

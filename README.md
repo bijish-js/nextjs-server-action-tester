@@ -82,7 +82,7 @@ module.exports = config
 ```
 
 - **`apiName`:** Name of the API route for handling actions.
-- **`pageName`:** Name of the page where actions are listed and tested.
+- **`pageName`:** Name of the page where actions are listed and tested. e.g., [http://localhost:3000/list-actions](http://localhost:3000/list-actions).
 - **`actionsPathFileName`:** Name of the JSON file created in the `public` directory containing metadata.
 - **`excludeDirs`:** List of directories to exclude from  scanning.
 - **`maxDepth`:** Maximum depth for scanning the project directory (default is 10).
