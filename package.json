@@ -13,11 +13,23 @@
 		"type": "git",
 		"url": "git+https://github.com/bijish-js/nextjs-server-action-tester.git"
 	},
-	"keywords": [
-		"nextjs",
-		"server_actions",
-		"testing"
-	],
+	"keywords":[
+		"Next.js",
+		"server-actions",
+		"testing",
+		"automation",
+		"TypeScript",
+		"JavaScript",
+		"serverless",
+		"developer-tools",
+		"dashboard",
+		"UI",
+		"metadata-generation",
+		"Next.js-14",
+		"code-scanning",
+		"server-functions",
+		"fullstack-development"
+	  ],
 	"author": "Bijish O B",
 	"license": "ISC",
 	"bugs": {

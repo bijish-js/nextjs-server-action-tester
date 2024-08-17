@@ -4,7 +4,7 @@
 
 ![nextjs-server-action-tester](https://github.com/user-attachments/assets/0dbf3b6e-3ac5-44eb-9769-417c0d992c27)
 
-## Table of Contents
+## Table of Contents 📑
 
 - [Installation](#Installation)
 - [Usage](#Usage)
@@ -17,7 +17,7 @@
 - [Contributing](#Contributing)
 - [License](#License)
 
-## Installation
+## Installation ⚙️
 
 To install the package, run the following command in your project directory:
 
@@ -25,7 +25,7 @@ To install the package, run the following command in your project directory:
 npm install nextjs-server-action-tester
 ```
 
-## Usage
+## Usage 🚀
 
 After installation, you can use the `actions-scan` command to scan and test server actions in your Next.js project:
 
@@ -35,7 +35,7 @@ npx actions-scan
 
 This command will set up the necessary files for testing server actions and  initiate the scanning process.
 
-## Setup Process
+## Setup Process 🛠️
 
 The setup process involves several steps:
 
@@ -65,7 +65,7 @@ The setup process involves several steps:
 
 - **Adds relevant files and paths** to the `.gitignore` file under the `# nextjs-server-action-tester` comment to ensure they are excluded from version control.
 
-## Configuration
+## Configuration 🔧
 
 Create a `nextServerActionTesterConfig.js` file in the root of your project to customize:
 
@@ -87,14 +87,14 @@ module.exports = config
 - **`excludeDirs`:** List of directories to exclude from  scanning.
 - **`maxDepth`:** Maximum depth for scanning the project directory (default is 10).
 
-## Scanning
+## Scanning 🔍
 
 1. The **scanning process** in the `nextjs-server-action-tester` tool utilizes [`@babel/parser`](https://www.npmjs.com/package/@babel/parser) and [`@babel/traverse`](https://www.npmjs.com/package/@babel/traverse) to parse JavaScript/TypeScript code into an Abstract Syntax Tree (AST) and analyze it for functions marked with the 'use server' directive.
 2. The tool reads the project setup, generates ASTs for relevant files, and identifies server actions by traversing the AST to extract function names and types.
 3. It then compiles metadata about these actions into a JSON file and creates an aggregator file with import and export statements for easier management.
 4. The result is a comprehensive setup that documents server actions and prepares them for testing.
 
-## Flow of Execution
+## Flow of Execution 🔄
 
 1. **Run `npx actions-scan`:** Triggers the scanning process.
 2. **Setup Phase:** Checks the Next.js version, project structure, and creates or updates configuration files as needed.
@@ -102,7 +102,7 @@ module.exports = config
 4. **Scan and Metadata Generation:** Scans the codebase for server actions and generates a metadata JSON file.
 5. **UI Setup:** Adds a new page and API route for interacting with the server actions.
 
-## UI Functionality
+## UI Functionality 💻
 
 The UI provided by the tool offers:
 
@@ -113,19 +113,20 @@ The UI provided by the tool offers:
 - **Light and Dark Mode:** Switch between light and dark themes.
 - **Result Display:** Show the output of executed server actions.
 
-## Generated Files and Changes
+## Generated Files and Changes 📂
 
 - **Configuration Files:** `tsconfig.json` or `jsconfig.json` updated or created.
 - **Page and API Files:** Copied to your project with necessary modifications.
 - **Metadata JSON File:** Generated in the `public` directory.
 - **Git Ignore Updates:** New entries added under `# nextjs-server-action-tester`.
 
-## Contributing
+## Contributing 🤝
 
 Contributions are welcome! Please feel free to submit a Pull Request with improvements or bug fixes.
 
-## License
+## License 📜
 
 This project is licensed under the ISC License.
 
-For more detailed information or specific use cases, please refer to the [GitHub repository](https://github.com/bijish-js/nextjs-server-action-tester) or contact the maintainer.
+For more detailed information or specific use cases, please refer to the [GitHub repository](https://github.com/bijish-js/nextjs-server-action-tester) or contact the [maintainer](https://bijishob.com).
+
