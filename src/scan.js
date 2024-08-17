@@ -6,7 +6,7 @@ const { determineProjectSetup, getConfig } = require("./utils");
 
 const projectSetup = determineProjectSetup();
 const YOUR_DIRECTORY = projectSetup?.hasSrcDir ? "src" : "";
-const SERVER_ACTIONS_FILE_PATH = ['public', 'serverActions.json'];
+const SERVER_ACTIONS_FILE_PATH = ['public', `${getConfig()?.actionsPathFileName}.json`];
 const AGGREGATOR_PATH = [projectSetup?.hasSrcDir ? "src" : "", 'app', 'api', getConfig()?.apiName, `aggregator.${projectSetup?.isTypeScript ? "ts" : "js"}`];
 
 // Utility function to generate a random alphabetic string of given length

@@ -257,23 +257,76 @@ const replaceText = async (filePath, replacements) => {
 	}
 };
 
-const addScripts = async () => {
+const addGitIgnoreFiles = async () => {
 	try {
-		// Modify package.json scripts to include 'scan'script
-		const packageJsonPath = path.resolve(process.cwd(), 'package.json');
-		const packageJson = require(packageJsonPath);
-		packageJson.scripts = packageJson.scripts || {};
-		packageJson.scripts.scan = 'actions-scan';
+		const projectSetup = determineProjectSetup();
+		const config = getConfig();
+		const gitIgnorePath = path.resolve(process.cwd(), '.gitignore');
 
+		const filesToIgnore = [
+			`/public/${config.actionsPathFileName}.json`,
+		];
 
-		await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
+		if (projectSetup?.hasSrcDir) {
+			filesToIgnore.push(
+				`/src/app/api/${config.apiName}`,
+				`/src/app/${config.pageName}`,
+			);
+		} else {
+			filesToIgnore.push(
+				`/app/api/${config.apiName}`,
+				`/app/${config.pageName}`,
+			);
+		}
+
+		// Define the comment marker
+		const commentMarker = '# nextjs-server-action-tester';
+
+		// Check if .gitignore exists, and create it if it doesn't
+		let existingContent = '';
+		try {
+			existingContent = await fsPromise.readFile(gitIgnorePath, 'utf8');
+		} catch (error) {
+			if (error.code === 'ENOENT') {
+				// File doesn't exist, we'll create it
+				await fsPromise.writeFile(gitIgnorePath, '');
+			} else {
+				throw error;
+			}
+		}
+
+		// Split the existing content into lines
+		const existingLines = existingContent.split('\n');
+
+		// Find the index of the comment marker
+		let markerIndex = existingLines.findIndex(line => line.trim() === commentMarker);
+
+		// If the marker doesn't exist, add it to the end
+		if (markerIndex === -1) {
+			existingLines.push('', commentMarker);
+			markerIndex = existingLines.length - 1;
+		}
+
+		// Filter out files that are already in .gitignore
+		const newFilesToIgnore = filesToIgnore.filter(file => !existingLines.includes(file));
+
+		if (newFilesToIgnore.length > 0) {
+			// Insert new files right after the comment marker
+			existingLines.splice(markerIndex + 1, 0, ...newFilesToIgnore);
+
+			// Join the lines back into a single string
+			const updatedContent = existingLines.join('\n');
+
+			// Write the updated content back to the file
+			await fsPromise.writeFile(gitIgnorePath, updatedContent);
+			console.log('✅ Successfully updated .gitignore');
+		} else {
+			console.log('ℹ️ No new files to add to .gitignore');
+		}
+	} catch (error) {
+		console.error("❌ Adding items to .gitignore failed:", error?.message);
 	}
-	catch (error) {
-		console.error("❌ Adding scripts to package.json failed:", error?.message);
-
-	}
-}
-
+};
 
 
 
@@ -286,6 +339,6 @@ module.exports = {
 	copyFolders,
 	updatePathAliases,
 	createJsConfig,
-	addScripts,
-	replaceText
+	replaceText,
+	addGitIgnoreFiles
 }

@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
-const path = require('path');
-const { determineProjectSetup, updatePathAliases, createJsConfig, copyFolders, prepareFilePaths, getConfig } = require("./utils")
+
+const { determineProjectSetup, updatePathAliases, createJsConfig, copyFolders, prepareFilePaths, getConfig, addGitIgnoreFiles } = require("./utils")
 
 
 async function setup() {
@@ -27,10 +27,13 @@ async function setup() {
 		// Copy folders 
 		const srcFolders = prepareFilePaths(projectSetup)
 		const replacements = [
-			{ searchValue: '{API_NAME}', newValue: getConfig().apiName }
+			{ searchValue: '{API_NAME}', newValue: getConfig().apiName },
+			{ searchValue: '{ACTIONS_PATH_FILENAME}', newValue: getConfig().actionsPathFileName }
 		];
 		await copyFolders(srcFolders, true, replacements)
 
+		// add files to gitignore
+		await addGitIgnoreFiles()
 		console.log('✅ Setup complete.');
 		return { success: true }
 

@@ -2,8 +2,6 @@
 import { useEffect, useState } from 'react';
 import styles from './actions.module.css';
 
-
-
 export default function ServerActions() {
 	const [actions, setActions] = useState([]);
 	const [searchableActions, setSearchableActions] = useState([]);
@@ -11,12 +9,9 @@ export default function ServerActions() {
 	const [args, setArgs] = useState({});
 	const [result, setResult] = useState(null);
 	const [error, setError] = useState(null);
-
 	const [isActionsLoading, setIsActionsLoading] = useState(false);
 	const [isActionExecuting, setIsActionExecuting] = useState(false);
-	const [isDarkMode, setDarkMode] = useState(() => {
-		return localStorage.getItem('actionsScanDarkMode') == 'true'
-	});
+	const [isDarkMode, setDarkMode] = useState(false);
 	const [searchInput, setSearchInput] = useState('')
 
 	const changeThemeMode = () => {
@@ -37,6 +32,11 @@ export default function ServerActions() {
 
 		setSearchableActions(newsearchableActions)
 	}
+
+	useEffect(() => {
+		setDarkMode(localStorage?.getItem('actionsScanDarkMode') === 'true');
+	}, []);
+
 	useEffect(() => {
 		document.body.style.margin = "0px";
 
@@ -49,7 +49,7 @@ export default function ServerActions() {
 		const fetchActions = async () => {
 			try {
 				setIsActionsLoading(true);
-				const res = await fetch('/serverActions.json');
+				const res = await fetch('/{ACTIONS_PATH_FILENAME}.json');
 				const data = await res.json();
 				setActions(data);
 				setSearchableActions(data)
@@ -137,18 +137,12 @@ export default function ServerActions() {
 	}
 
 	const readableType = (type) => {
-
 		if (type === 'TSBooleanKeyword') return 'boolean'
 		if (type === 'TSStringKeyword') return 'string'
 		if (type === 'TSNumberKeyword') return 'number'
 		if (type === 'TSObjectKeyword') return 'object'
 		if (type === 'TSAnyKeyword') return 'any'
-
-
-
 		return type
-
-
 	}
 	return (
 		<div className={` ${styles.container} ${isDarkMode === true ? styles.darkContainer : styles.lightContainer}`}>
@@ -203,8 +197,7 @@ export default function ServerActions() {
 					{!isActionsLoading && actions?.length > 0 ? (
 						<>
 
-							<p className={`${styles.selectActionLabel}  ${isDarkMode ? styles.darkSelectActionLabel : styles.lightSelectActionLabel}`}>Select action 🔍</p>
-							<input type="text" placeholder="Search... " value={searchInput} onChange={handleSearchChange} className={`${styles.actionNameInput}  ${isDarkMode ? styles.darkActionNameInput : styles.lightSelectActionLabel}`} />
+							<input type="text" placeholder="🔍  Search action" value={searchInput} onChange={handleSearchChange} className={`${styles.actionNameInput}  ${isDarkMode ? styles.darkActionNameInput : styles.lightSelectActionLabel}`} />
 
 							<div className={`${styles.actionsList}`}>
 
