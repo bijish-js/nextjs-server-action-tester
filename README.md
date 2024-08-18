@@ -4,6 +4,13 @@
 
 ![nextjs-server-action-tester](https://github.com/user-attachments/assets/0dbf3b6e-3ac5-44eb-9769-417c0d992c27)
 
+## Video Demonstration 🎥
+
+Watch the video demonstration of the `nextjs-server-action-tester` tool to see how it works in action:
+
+[![Next.js Server Action Tester Video](https://img.youtube.com/vi/ypyj3fUJJlo/0.jpg)](https://youtu.be/ypyj3fUJJlo?si=r_XBQrp11cawbe5j)
+
+
 ## Table of Contents 📑
 
 - [Installation](#Installation)
