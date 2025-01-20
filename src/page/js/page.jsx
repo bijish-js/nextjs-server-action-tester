@@ -152,18 +152,22 @@ export default function ServerActions() {
 
 					<h1 className={`${styles.topHeading} ${isDarkMode === true ? styles.topHeadingDark : styles.topHeadingLight}`}>Next.js Server Actions</h1>
 
+					<div className={styles.themeToggleCoffeeWrap}>
+						<button type="button" className={styles.darkMode} onClick={changeThemeMode} onKeyUp={changeThemeViaKeyboard}>
+							<input type="checkbox"
+								id="darkModeToggle"
+								className={styles.darkModeInput}
+								onChange={changeThemeMode}
+								checked={isDarkMode}
+							/>
+							<label htmlFor="darkModeToggle" className={styles.darkModeLabel}>
 
-					<button type="button" className={styles.darkMode} onClick={changeThemeMode} onKeyUp={changeThemeViaKeyboard}>
-						<input type="checkbox"
-							id="darkModeToggle"
-							className={styles.darkModeInput}
-							onChange={changeThemeMode}
-							checked={isDarkMode}
-						/>
-						<label htmlFor="darkModeToggle" className={styles.darkModeLabel}>
-
-						</label>
-					</button>
+							</label>
+						</button>
+						<a href="https://buymeacoffee.com/bijish" target="_blank" className={styles.buyMeACoffeeLink}>
+							<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="1" className={styles.buyMeACoffeeImage} />
+						</a>
+					</div>
 				</div>
 			</div>
 

@@ -407,6 +407,20 @@
 	display: inline;
 }
 
+.themeToggleCoffeeWrap {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.buyMeACoffeeLink {
+	cursor: pointer;
+}
+
+.buyMeACoffeeImage {
+	width: 140px;
+}
+
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);
@@ -427,5 +441,9 @@
 		width: 100%;
 		text-align: center;
 		justify-content: center;
+	}
+
+	.buyMeACoffeeImage {
+		width: 100px;
 	}
 }

@@ -4,6 +4,14 @@
 
 ![nextjs-server-action-tester](https://github.com/user-attachments/assets/0dbf3b6e-3ac5-44eb-9769-417c0d992c27)
 
+## Support the Project ☕
+
+If you found this tool helpful in your development workflow and would like to support its continued maintenance and improvement, you can buy me a coffee! Your support helps keep this project active and growing.
+
+<a href="https://buymeacoffee.com/bijish" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
+</a>
+
 ## Video Demonstration 🎥
 
 Watch the video demonstration of the `nextjs-server-action-tester` tool to see how it works in action:

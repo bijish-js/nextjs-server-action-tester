@@ -7,7 +7,8 @@
 		"actions-scan": "src/index.js"
 	},
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"postinstall": "echo \"Thanks for installing nextjs-server-action-tester! If you find this tool helpful, consider buying me a coffee: https://www.buymeacoffee.com/bijishob\""
 	},
 	"repository": {
 		"type": "git",
