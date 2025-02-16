@@ -329,6 +329,42 @@ const addGitIgnoreFiles = async () => {
 };
 
 
+const deleteCreatedFiles = async () => {
+	try {
+		const projectSetup = determineProjectSetup();
+		const config = getConfig();
+
+		// Collect all paths to delete
+		const filesToDelete = [
+			path.resolve(process.cwd(), 'public', `${config.actionsPathFileName}.json`),
+		];
+
+		// Add the app directories based on project structure
+		if (projectSetup?.hasSrcDir) {
+			filesToDelete.push(
+				path.resolve(process.cwd(), 'src', 'app', 'api', config.apiName),
+				path.resolve(process.cwd(), 'src', 'app', config.pageName),
+			);
+		} else {
+			filesToDelete.push(
+				path.resolve(process.cwd(), 'app', 'api', config.apiName),
+				path.resolve(process.cwd(), 'app', config.pageName),
+			);
+		}
+
+		// Delete each file/directory
+		for (const filePath of filesToDelete) {
+			if (await fsExtra.pathExists(filePath)) {
+				await fsExtra.remove(filePath);
+				console.log(`✅ Deleted: ${filePath}`);
+			}
+		}
+
+		console.log('✅ Successfully cleaned up all created files');
+	} catch (error) {
+		console.error("❌ Error while deleting files:", error?.message);
+	}
+};
 
 module.exports = {
 	determineProjectSetup,
@@ -340,5 +376,6 @@ module.exports = {
 	updatePathAliases,
 	createJsConfig,
 	replaceText,
-	addGitIgnoreFiles
+	addGitIgnoreFiles,
+	deleteCreatedFiles
 }

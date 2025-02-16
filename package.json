@@ -1,10 +1,11 @@
 {
 	"name": "nextjs-server-action-tester",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A development tool for scanning and testing server actions in Next.js projects.",
 	"main": "index.js",
 	"bin": {
-		"actions-scan": "src/index.js"
+		"actions-scan": "src/index.js",
+		"delete-gen-files": "src/deleteGeneratedFiles.js"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",

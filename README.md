@@ -135,6 +135,16 @@ The UI provided by the tool offers:
 - **Metadata JSON File:** Generated in the `public` directory.
 - **Git Ignore Updates:** New entries added under `# nextjs-server-action-tester`.
 
+## Cleanup 🧹
+
+If you want to remove generated files from your project, use:
+```bash
+npx delete-gen-files
+```
+This command will remove:
+- **Page and API Files:** Copied to your project with necessary modifications.
+- **Metadata JSON File:** Generated in the public directory.
+
 ## Contributing 🤝
 
 Contributions are welcome! Please feel free to submit a Pull Request with improvements or bug fixes.
